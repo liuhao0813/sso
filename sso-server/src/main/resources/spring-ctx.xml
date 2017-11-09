@@ -28,14 +28,7 @@
 		destroy-method="destroy">
 		<property name="loginViewName" value="login" />
 		<property name="authenticationHandler">
-			<bean class="com.ovu.sso.server.auth.impl.DemoAuthenticationHandler" />
-		</property>
-		<property name="preLoginHandler">
-			<bean class="com.ovu.sso.server.auth.impl.CaptchaPreLoginHandler" />
-		</property>
-		<!-- <property name="tokenTimeout" value="15" /> -->
-		<property name="userSerializer">
-			<bean class="com.ovu.sso.server.auth.impl.DemoUserSerializer" />
+			<bean class="com.ovu.sso.server.auth.impl.UsernameAndPasswordAuthenticationHandler" />
 		</property>
 	</bean>
 
