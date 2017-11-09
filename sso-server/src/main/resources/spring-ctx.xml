@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd ">
+
+	<context:component-scan base-package="com.ovu.sso.server" />
+
+	<context:annotation-config />
+
+	<!-- DataSource配置 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://192.168.142.128:3306/sso-server" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+	<!-- 单点登陆配置 loginViewName loginViewName：配置登陆页面 authenticationHandler:配置认证器 
+		preLoginHandler:配置认证器得前置通知 userSerialLizer:用户对象序列化接口 -->
+	<bean class="com.ovu.sso.server.config.SsoConfig" init-method="refreshConfig"
+		destroy-method="destroy">
+		<property name="loginViewName" value="login" />
+		<property name="authenticationHandler">
+			<bean class="com.ovu.sso.server.auth.impl.DemoAuthenticationHandler" />
+		</property>
+		<property name="preLoginHandler">
+			<bean class="com.ovu.sso.server.auth.impl.CaptchaPreLoginHandler" />
+		</property>
+		<!-- <property name="tokenTimeout" value="15" /> -->
+		<property name="userSerializer">
+			<bean class="com.ovu.sso.server.auth.impl.DemoUserSerializer" />
+		</property>
+	</bean>
+
+	<!-- 通过注解的方式配置事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 配置事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Mybatis 配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:com/ovu/sso/server/**/dao/*.xml" />
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<value>
+							helperDialect=mysql
+	                        reasonable=true
+	                        supportMethodsArguments=true
+	                        params=count=countSql
+	                        autoRuntimeDialect=true
+                        </value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ovu.sso.server.**.dao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+</beans>

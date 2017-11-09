@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ovu.sso.server.user.dao.IUserDao">
+
+ <sql id="tb_user_query_Base" >
+        SELECT 
+		    t.USERNAME AS username,
+		    t.AGE AS age,
+		    t.DISABLE AS disable,
+		    t.EMAIL AS email,
+		    t.EXPIRED AS expried,
+		    t.PASSWORD AS password,
+		    t.ADDRESS AS address,
+		    t.LOGIN_TOKEN AS loginToken
+		FROM
+		    sys_user t
+  </sql>
+  
+  <sql id="tb_user_query_condition" >
+  		<where>
+  			<if test="username != null">
+  				and t.USERNAME = #{username,jdbcType=VARCHAR}
+  			</if>
+  			<if test="disable != null">
+  				and t.DISABLE = #{disable,jdbcType=VARCHAR} 
+  			</if>
+  			<if test="email != null">
+  				and t.EMAIL = #{email,jdbcType=VARCHAR}
+  			</if>
+  			<if test="age != null">
+  				and t.AGE = #{age,jdbcType=INTEGER}
+  			</if>
+  			<if test="expried != null">
+  				and t.EXPIRED = #{expried,jdbcType=VARCHAR}
+  			</if>
+  			<if test="address != null">
+  				and t.ADDRESS = #{address,jdbcType=VARCHAR}
+  			</if>
+  		</where>
+  </sql>
+  
+  <select id="findUser" resultType="com.ovu.sso.server.user.vo.UserVO" parameterType="java.lang.String" >
+	    <include refid="tb_user_query_Base" />
+	    where USERNAME = #{username,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findUserList" resultType="com.ovu.sso.server.user.vo.UserVO" >
+  		<include refid="tb_user_query_Base" />
+  		<include refid="tb_user_query_condition" />
+  </select>
+  
+  <delete id="delUser" parameterType="java.lang.String" >
+	    delete from sys_user
+	    where USERNAME = #{username,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="addUser" parameterType="com.ovu.sso.server.user.vo.UserVO" >
+  		insert into sys_user
+  		USERNAME，
+  		AGE,
+  		DISABLE,
+  		EMAIL,
+  		EXPIRED,
+  		PASSWORD,
+  		ADDRESS
+		  )
+		values
+		  (#{username,jdbcType=VARCHAR},
+		  #{age,jdbcType=INTEGER},
+		  #{disable,jdbcType=VARCHAR},
+		  #{email,jdbcType=VARCHAR},
+		  #{expried,jdbcType=VARCHAR},
+		  #{password,jdbcType=VARCHAR},
+		  #{address,jdbcType=VARCHAR}
+		   )
+  </insert>
+ 
+  <update id="updateUser" parameterType="com.ovu.sso.server.user.vo.UserVO" >
+	    update sys_user
+		   set AGE = #{age,jdbcType=INTEGER},
+		  		DISABLE = #{disable,jdbcType=VARCHAR},
+		  		EMAIL = #{email,jdbcType=VARCHAR},
+		  		EXPIRED = #{expried,jdbcType=VARCHAR},
+		  		PASSWORD = #{password,jdbcType=VARCHAR},
+		  		ADDRESS = #{address,jdbcType=VARCHAR}
+	    where USERNAME = #{username,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateLoginToken" parameterType="com.ovu.sso.server.user.vo.UserVO" >
+	    update sys_user
+		   set login_token = #{loginToken,jdbcType=VARCHAR}
+	    where USERNAME = #{username,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

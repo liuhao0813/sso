@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>LOGIN</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css?v=v3.3.7" media="all">
+    <link rel="stylesheet" type="text/css" href="/css/font/iconfont.css?v=1.0.1" media="all">
+    <link rel="stylesheet" type="text/css" href="/css/layui.css?v=1.0.9" media="all">
+    <link rel="stylesheet" type="text/css" href="/css/main.css?v1.4.0" media="all">
+    <script type="text/javascript" src="/scripts/jquery.js"></script>
+	<script type="text/javascript" src="/scripts/cookie_util.js"></script>
+	<script type="text/javascript">
+		
+		var UNAME_COOKIE_NAME = "lastLoginUserName";
+		
+		$(function() {
+			// 如果name没有value，将cookie中存储过的name值写入
+			var eleName = $("input[name=name]");
+			eleName.val(Cookie.get(UNAME_COOKIE_NAME));
+			
+			// 登录按钮被点击时记住当前name
+			$("form").submit(function() {
+				Cookie.set(UNAME_COOKIE_NAME, $.trim(eleName.val()), null, 7 * 24 * 60);
+			});
+		});
+	</script>
+</head>
+<body>
+    <div class="container-fluid larry-wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-4 col-md-offset-4 col-sm-offset-2 ">
+                <div data-th-if="${loginUser ==null}">
+	                <section class="panel panel-padding login-pane">
+	                    <h1 class="head-title">SSO-SERVER 登陆</h1>
+	                    <form class="layui-form layui-form-pane" action="/login" data-th-action="@{/login}" method="post">
+	                        <div class="layui-form-item">
+	                            <label class="layui-form-label"><i class="iconfont">&#xe672;</i> 帐号</label>
+	                            <div class="layui-input-block">
+	                                <input type="text" name="name" required jq-verify="required" placeholder="登录帐号" autocomplete="off" class="layui-input">
+	                            </div>
+	                        </div>
+	                        <div class="layui-form-item">
+	                            <label class="layui-form-label"><i class="iconfont">&#xe609;</i> 密码</label>
+	                            <div class="layui-input-block">
+	                                <input type="password" name="passwd" required jq-verify="required" placeholder="登录密码" autocomplete="off" class="layui-input">
+	                                <input type="hidden" name="backUrl" autocomplete="off" data-th-value="${backUrl}"/>
+	                            </div>
+	                        </div>
+	                        <p style="color:red;font-weight:bold;" data-th-if="${errorMsg != null}")><span data-th-text="${errorMsg}"></span></p>
+	                        <!-- <div class="layui-form-item">
+	                            <div class="layui-input-inline">
+	                                <input type="text" name="pwd" required jq-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
+	
+	                            </div>
+	                            <div class="layui-input-inline"> <img src="images/code.png" alt="" /></div>
+	                        </div>
+	                        <div class="layui-form-item">
+	                            <div class="layui-input-inline">
+	                                <input type="checkbox" name="open" lay-skin="switch" checked>
+	                                <span class="font-pt">记住我的登录</span>
+	                            </div>
+	                        </div> -->
+	                        <div class="layui-form-item">
+	                            <div class="layui-input-block">
+	                                <button class="layui-btn" jq-submit jq-filter="submit">立即登陆</button>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </section>
+                </div>
+                
+                <div data-th-if="${loginUser !=null}">
+                 <section class="panel panel-padding login-pane">
+					<p>欢迎：<span data-th-text="${loginUser}">test</span>
+						<button style="margin-left:20px;" onclick="location.href='http://www.ca.com:8080/logout'">退出</button>
+					</p>
+					<ul>
+						<li data-th-each="sys : ${sysList}">
+							<a href="#" data-th-href="@{*{sys.homeUrl}}" target="_blank">
+								<span data-th-text="${sys.name}">sysName</span>
+							</a>
+							<script type="text/javascript" data-th-src="@{*{sys.baseUrl}+'/cookie_set?vt='+${vt}+'&jwt='+${jwt}}"></script>	</li>
+					</ul>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
