@@ -212,5 +212,6 @@
 		<module>sso-server</module>
 		<module>sso-client</module>
 		<module>sso-common</module>
+		<module>demo-client1</module>
 	</modules>
 </project>

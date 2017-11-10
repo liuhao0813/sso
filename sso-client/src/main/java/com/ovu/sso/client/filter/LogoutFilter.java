@@ -13,7 +13,7 @@ import com.ovu.sso.common.util.SessionUtils;
 /**
  * 单点退出Filter
  * 
- * @author Joe
+ * @author admin
  */
 public class LogoutFilter extends ClientFilter {
 
