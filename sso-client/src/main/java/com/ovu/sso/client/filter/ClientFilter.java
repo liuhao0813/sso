@@ -49,7 +49,7 @@ public abstract class ClientFilter implements Filter {
 			throw new IllegalArgumentException("ssoServerUrl不能为空");
 		}
 		*/
-		ssoServerUrl = filterConfig.getInitParameter(ssoServerUrl);
+		ssoServerUrl = filterConfig.getInitParameter("ssoServerUrl");
 		if (StringUtils.isBlank(ssoServerUrl)) {
 			throw new IllegalArgumentException("ssoServerUrl不能为空");
 		}
