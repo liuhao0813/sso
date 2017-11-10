@@ -24,6 +24,7 @@ public class LogoutController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String logout(String backUrl, HttpServletRequest request) {
+		tokenManager.print();
 		String token = CookieUtils.getCookie(request, "token");
 		if (StringUtils.isNotBlank(token)) {
 			tokenManager.remove(token);

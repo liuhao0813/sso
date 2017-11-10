@@ -35,7 +35,7 @@ public class SsoFilter extends ClientFilter {
 			else
 				redirectLogin(request, response);
 		}
-		else if (isLogined(token))
+		else if (isLogined(request,token))
 			chain.doFilter(request, response);
 		else
 			redirectLogin(request, response);
@@ -87,7 +87,7 @@ public class SsoFilter extends ClientFilter {
 			SessionUtils.invalidate(request);
 			//拼接跳转URL
 			String ssoLoginUrl = new StringBuilder().append(ssoServerUrl).append("/login?backUrl=")
-					.append(request.getRequestURL()).append("&appCode=").append(ssoAppCode).toString();
+					.append(request.getRequestURL()).toString();
 
 			response.sendRedirect(ssoLoginUrl);
 		}
@@ -101,6 +101,7 @@ public class SsoFilter extends ClientFilter {
 	 * @param profile
 	 */
 	private void invokeAuthenticationInfoInSession(HttpServletRequest request, String token, String account) {
+		SessionUtils.invalidate(request);
 		SessionUtils.setSessionUser(request, new SessionUser(token, account));
 	}
 
@@ -110,8 +111,13 @@ public class SsoFilter extends ClientFilter {
 	 * @param token
 	 * @return
 	 */
-	private boolean isLogined(String token) {
-		return authenticationRpcService.validate(token);
+	private boolean isLogined(HttpServletRequest request,String token) {
+		RpcUser rpcUser = authenticationRpcService.findAuthInfo(token);
+		if (rpcUser != null) {
+			invokeAuthenticationInfoInSession(request, token, rpcUser.getAccount());
+			return true;
+		}
+		return false;
 	}
 
 	/**

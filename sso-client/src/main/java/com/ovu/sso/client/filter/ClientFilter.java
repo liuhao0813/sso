@@ -22,7 +22,6 @@ import com.alibaba.fastjson.JSON;
 import com.ovu.sso.client.service.AuthenticationRpcService;
 import com.ovu.sso.common.exception.ServiceException;
 import com.ovu.sso.common.model.Result;
-import com.ovu.sso.common.util.ConfigUtils;
 import com.ovu.sso.common.util.SpringUtils;
 import com.ovu.sso.common.util.StringUtils;
 
@@ -36,8 +35,6 @@ public abstract class ClientFilter implements Filter {
 
 	// 单点登录服务端URL
 	protected String ssoServerUrl;
-	// 当前应用关联权限系统的应用编码
-	protected String ssoAppCode;
 	// 单点登录服务端提供的RPC服务，由Spring容器注入
 	protected AuthenticationRpcService authenticationRpcService;
 
@@ -48,11 +45,13 @@ public abstract class ClientFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		if (StringUtils.isBlank(ssoServerUrl = ConfigUtils.getProperty("sso.server.url"))) {
+		/*if (StringUtils.isBlank(ssoServerUrl = ConfigUtils.getProperty("sso.server.url"))) {
 			throw new IllegalArgumentException("ssoServerUrl不能为空");
 		}
-		if (StringUtils.isBlank(ssoAppCode = ConfigUtils.getProperty("sso.app.code"))) {
-			throw new IllegalArgumentException("ssoAppCode不能为空");
+		*/
+		ssoServerUrl = filterConfig.getInitParameter(ssoServerUrl);
+		if (StringUtils.isBlank(ssoServerUrl)) {
+			throw new IllegalArgumentException("ssoServerUrl不能为空");
 		}
 		if ((authenticationRpcService = SpringUtils.getBean(AuthenticationRpcService.class)) == null) {
 			throw new IllegalArgumentException("authenticationRpcService注入失败");

@@ -24,7 +24,7 @@ import com.ovu.sso.server.model.LoginUser;
 
 
 /**
- * @author Joe
+ * @author admin
  */
 @Controller
 @RequestMapping("/login")
@@ -39,11 +39,11 @@ public class LoginController extends BaseController{
     private SsoConfig config;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String login(String backUrl,String appCode,HttpServletRequest request) {
+	public String login(String backUrl,HttpServletRequest request) {
 		
 		String token = CookieUtils.getCookie(request, "token");
 		if (token == null) {
-			return goLoginPath(backUrl, appCode, request);
+			return goLoginPath(backUrl, request);
 		}
 		else {
 			LoginUser loginUser = tokenManager.validate(token);
@@ -51,13 +51,13 @@ public class LoginController extends BaseController{
 				return "redirect:" + StringUtils.appendUrlParameter(backUrl, SsoFilter.SSO_TOKEN_NAME, token);
 			}
 			else {
-				return goLoginPath(backUrl, appCode, request);
+				return goLoginPath(backUrl, request);
 			}
 		}
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String login(String backUrl,String appCode,HttpServletRequest request, HttpServletResponse response,ModelMap map) throws Exception {
+	public String login(String backUrl,HttpServletRequest request, HttpServletResponse response,ModelMap map) throws Exception {
 		
 		final Map<String, String[]> params = request.getParameterMap();
 
@@ -90,7 +90,7 @@ public class LoginController extends BaseController{
 				//token存在且认证通过，表示有多用户登陆，需要进行更新，以后面登陆的用户为准
 				updateToken(loginUser,token,request);
 			}
-
+			tokenManager.print();
 			// 跳转到原请求
 			backUrl = URLDecoder.decode(backUrl, "utf-8");
 			return "redirect:" + StringUtils.appendUrlParameter(backUrl, SsoFilter.SSO_TOKEN_NAME, token);
@@ -105,9 +105,8 @@ public class LoginController extends BaseController{
 		
 	}
 
-	private String goLoginPath(String backUrl, String appCode, HttpServletRequest request) {
+	private String goLoginPath(String backUrl, HttpServletRequest request) {
 		request.setAttribute("backUrl", backUrl);
-		request.setAttribute("appCode", appCode);
 		return config.getLoginViewName();
 	}
 

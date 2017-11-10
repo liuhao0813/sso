@@ -58,4 +58,7 @@ public abstract class TokenManager {
 	 * @param token
 	 */
 	public abstract void remove(String token);
+	
+	
+	public abstract void print();
 }

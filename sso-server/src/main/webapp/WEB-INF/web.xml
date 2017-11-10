@@ -30,6 +30,10 @@
 		<filter-name>ssoFilter</filter-name>
 		<filter-class>com.ovu.sso.client.filter.SsoFilter</filter-class>
 		<init-param>
+			<param-name>ssoServerUrl</param-name>
+			<param-value>http://localhost:8084/sso-server</param-value>
+		</init-param>
+		<init-param>
 			<param-name>excludes</param-name>
 			<param-value>/login,/logout,/rpc,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/api-docs，,/css/**,/scripts/**</param-value>
 		</init-param>
@@ -68,14 +72,5 @@
 		<servlet-name>rpc</servlet-name>
 		<url-pattern>/rpc/*</url-pattern>
 	</servlet-mapping>
-	
-	 
-	 
-	<!-- 应用初始化参数 -->
-	<servlet>
-		<servlet-name>configServlet</servlet-name>
-		<servlet-class>com.ovu.sso.server.common.ConfigServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
-		<async-supported>true</async-supported>
-	</servlet>
+
 </web-app>

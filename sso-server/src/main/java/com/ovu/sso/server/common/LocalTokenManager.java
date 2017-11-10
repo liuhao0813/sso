@@ -57,6 +57,19 @@ public class LocalTokenManager extends TokenManager {
 	public void remove(String token) {
 		tokenMap.remove(token);
 	}
+	
+	public void print() {
+		
+		if(!tokenMap.isEmpty()) {
+			for(Entry<String, DummyUser> set : tokenMap.entrySet()) {
+				String token = set.getKey();
+				DummyUser dummyUser = set.getValue();
+				
+				System.out.println(token+"-------------------------->"+dummyUser.loginUser.getAccount());
+			}
+		}
+		
+	}
 
 	/**
 	 * 扩展过期时间

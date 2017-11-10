@@ -69,24 +69,5 @@
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 	
-	
-	
-	<bean class="com.ovu.sso.common.util.ConfigUtils">
-		<property name="fileEncoding" value="UTF-8" />
-		<property name="locations">
-			<list>
-				<!--数据库参数配置
-				<value>classpath:jdbc.properties</value> -->
-				<!--Dubbo参数配置
-				<value>classpath:dubbo.properties</value> -->
-				<!--服务参数配置
-				<value>classpath:service.properties</value> -->
-				<!--单点登录参数配置 -->
-				<value>classpath:sso.properties</value>
-				<!--当前应用参数配置 -->
-				<value>classpath:config.properties</value>
-			</list>
-		</property>
-	</bean>
 
 </beans>
