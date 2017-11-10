@@ -1,7 +1,7 @@
 package com.ovu.sso.server.auth;
 
-import com.ovu.sso.server.common.LoginUser;
 import com.ovu.sso.server.model.Credential;
+import com.ovu.sso.server.model.LoginUser;
 
 /**
  * 鉴权处理器

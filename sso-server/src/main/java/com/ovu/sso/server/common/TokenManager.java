@@ -3,6 +3,8 @@ package com.ovu.sso.server.common;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.ovu.sso.server.model.LoginUser;
+
 /**
  * 令牌管理抽象
  * 

@@ -23,6 +23,7 @@
 		<jstl.version>1.2</jstl.version>
 		<thymeleaft.version>3.0.8.RELEASE</thymeleaft.version>
 		<fastjson.version>1.2.29</fastjson.version>
+		<hessian.version>4.0.38</hessian.version>
 	</properties>
 
 	<dependencyManagement>
@@ -127,6 +128,13 @@
 				<artifactId>fastjson</artifactId>
 				<version>${fastjson.version}</version>
 			</dependency>
+			
+			<!-- 远程RPC调用hessian支持 -->
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>${hessian.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -146,17 +154,18 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>3.2.0</version>
-					<!-- <configuration> <warSourceDirectory>webapp</warSourceDirectory> 
-						<failOnMissingWebXml>false</failOnMissingWebXml> <outputDirectory>d:/deploy_wars</outputDirectory> 
-						</configuration> -->
 				</plugin>
+				<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<port>${server.port}</port>
+					<path>/${project.artifactId}</path>
+				</configuration>
+			</plugin>
 			</plugins>
 		</pluginManagement>
-
-
-		<!-- src/main/config下配置文件复制到目标 <resources> <resource> <directory>src/main/config</directory> 
-			<includes> <include>**/*</include> </includes> </resource> </resources> -->
-
 	</build>
 
 	<repositories>

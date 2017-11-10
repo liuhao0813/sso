@@ -7,10 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ovu.sso.client.exception.ServiceException;
-import com.ovu.sso.client.model.RpcUser;
-import com.ovu.sso.client.model.SsoResultCode;
 import com.ovu.sso.common.SessionUser;
+import com.ovu.sso.common.exception.ServiceException;
+import com.ovu.sso.common.model.RpcUser;
+import com.ovu.sso.common.model.SsoResultCode;
 import com.ovu.sso.common.util.SessionUtils;
 
 /**

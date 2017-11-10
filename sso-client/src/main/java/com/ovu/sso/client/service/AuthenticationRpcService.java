@@ -1,6 +1,6 @@
 package com.ovu.sso.client.service;
 
-import com.ovu.sso.client.model.RpcUser;
+import com.ovu.sso.common.model.RpcUser;
 
 
 /**

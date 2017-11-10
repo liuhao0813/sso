@@ -19,9 +19,9 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
 import com.alibaba.fastjson.JSON;
-import com.ovu.sso.client.exception.ServiceException;
-import com.ovu.sso.client.model.Result;
 import com.ovu.sso.client.service.AuthenticationRpcService;
+import com.ovu.sso.common.exception.ServiceException;
+import com.ovu.sso.common.model.Result;
 import com.ovu.sso.common.util.ConfigUtils;
 import com.ovu.sso.common.util.SpringUtils;
 import com.ovu.sso.common.util.StringUtils;

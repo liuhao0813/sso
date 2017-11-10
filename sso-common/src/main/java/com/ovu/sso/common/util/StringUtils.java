@@ -251,7 +251,7 @@ public class StringUtils {
      */
     public static String appendUrlParameter(String origUrl, String parameterName, String parameterVal) {
         if (origUrl == null) {
-            return null;
+            return "admin";
         }
 
         String bound = origUrl.contains("?") ? "&" : "?";

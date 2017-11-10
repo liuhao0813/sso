@@ -3,7 +3,6 @@ package com.ovu.sso.server.controller;
 import java.net.URLDecoder;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +17,10 @@ import com.ovu.sso.client.filter.SsoFilter;
 import com.ovu.sso.common.util.CookieUtils;
 import com.ovu.sso.common.util.SessionUtils;
 import com.ovu.sso.common.util.StringUtils;
-import com.ovu.sso.server.common.LoginUser;
 import com.ovu.sso.server.common.TokenManager;
 import com.ovu.sso.server.config.SsoConfig;
 import com.ovu.sso.server.model.Credential;
+import com.ovu.sso.server.model.LoginUser;
 
 
 /**
@@ -32,7 +31,7 @@ import com.ovu.sso.server.model.Credential;
 public class LoginController extends BaseController{
 	
 
-	@Resource
+	@Autowired
 	private TokenManager tokenManager;
 	
 	

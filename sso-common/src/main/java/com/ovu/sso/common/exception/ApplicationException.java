@@ -1,6 +1,6 @@
-package com.ovu.sso.client.exception;
+package com.ovu.sso.common.exception;
 
-import com.ovu.sso.client.model.ResultCode;
+import com.ovu.sso.common.model.ResultCode;
 
 /**
  * 应用异常

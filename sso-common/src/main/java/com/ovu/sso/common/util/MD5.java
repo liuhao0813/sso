@@ -1,4 +1,4 @@
-package com.ovu.sso.common;
+package com.ovu.sso.common.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

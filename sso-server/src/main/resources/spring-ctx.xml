@@ -12,6 +12,9 @@
 	<context:component-scan base-package="com.ovu.sso.server" />
 
 	<context:annotation-config />
+	
+	<!-- SSO令牌管理  -->
+	<bean id="tokenManager" class="com.ovu.sso.server.common.LocalTokenManager"/>
 
 	<!-- DataSource配置 -->
 	<bean id="dataSource"
@@ -24,8 +27,7 @@
 
 	<!-- 单点登陆配置 loginViewName loginViewName：配置登陆页面 authenticationHandler:配置认证器 
 		preLoginHandler:配置认证器得前置通知 userSerialLizer:用户对象序列化接口 -->
-	<bean class="com.ovu.sso.server.config.SsoConfig" init-method="refreshConfig"
-		destroy-method="destroy">
+	<bean class="com.ovu.sso.server.config.SsoConfig" init-method="refreshConfig">
 		<property name="loginViewName" value="login" />
 		<property name="authenticationHandler">
 			<bean class="com.ovu.sso.server.auth.impl.UsernameAndPasswordAuthenticationHandler" />
@@ -64,7 +66,27 @@
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.ovu.sso.server.**.dao" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	
+	
+	<bean class="com.ovu.sso.common.util.ConfigUtils">
+		<property name="fileEncoding" value="UTF-8" />
+		<property name="locations">
+			<list>
+				<!--数据库参数配置
+				<value>classpath:jdbc.properties</value> -->
+				<!--Dubbo参数配置
+				<value>classpath:dubbo.properties</value> -->
+				<!--服务参数配置
+				<value>classpath:service.properties</value> -->
+				<!--单点登录参数配置 -->
+				<value>classpath:sso.properties</value>
+				<!--当前应用参数配置 -->
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
 	</bean>
 
 </beans>

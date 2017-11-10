@@ -1,5 +1,4 @@
-package com.ovu.sso.client.model;
-
+package com.ovu.sso.common.model;
 
 /**
  * 单点登录权限返回码

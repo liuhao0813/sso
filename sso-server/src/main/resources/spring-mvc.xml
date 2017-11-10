@@ -11,16 +11,21 @@
 								http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:annotation-driven />
-	<context:component-scan base-package="com.ovu.sso.server.**.controller" />
-
 	<mvc:default-servlet-handler />
+	
+	<context:component-scan base-package="com.ovu.sso.server.**.controller" />
+	
+	<!-- 默认跳转管理员首页，因为没有权限会跳转至登录页 -->
+	<mvc:view-controller path="/" view-name="redirect:admin" />
 
-	<!-- thymeleaft视图解析器配置  -->
-	<bean id="templateResolver"
-		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+	<!-- 自定义异常处理 -->
+	<bean id="exceptionResolver" class="com.ovu.sso.common.exception.ExceptionResolver" />
+
+	<!-- thymeleaft视图解析器配置 -->
+	<bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".html" />
-		<property name="templateMode" value="HTML" />
+		<property name="templateMode" value="HTML5" />
 		<property name="cacheable" value="false" />
 		<property name="characterEncoding" value="utf-8" />
 	</bean>
@@ -34,5 +39,5 @@
 		<property name="characterEncoding" value="utf-8" />
 	</bean>
 
- 		
+
 </beans>

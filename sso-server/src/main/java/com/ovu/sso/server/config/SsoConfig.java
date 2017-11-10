@@ -103,5 +103,7 @@ public class SsoConfig implements ResourceLoaderAware {
         this.resourceLoader = loader;
     }
 
-
+    public void destory() {
+    	
+    }
 }

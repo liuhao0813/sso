@@ -29,6 +29,6 @@ public class LogoutController {
 			tokenManager.remove(token);
 		}
 		SessionUtils.invalidate(request);
-		return "redirect:" + (StringUtils.isBlank(backUrl) ? "/admin/admin" : backUrl);
+		return "redirect:" + (StringUtils.isBlank(backUrl) ? "/admin" : backUrl);
 	}
 }

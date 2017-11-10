@@ -2,10 +2,10 @@ package com.ovu.sso.server.auth.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ovu.sso.common.MD5;
+import com.ovu.sso.common.util.MD5;
 import com.ovu.sso.server.auth.IAuthenticationHandler;
-import com.ovu.sso.server.common.LoginUser;
 import com.ovu.sso.server.model.Credential;
+import com.ovu.sso.server.model.LoginUser;
 import com.ovu.sso.server.user.service.IUserService;
 import com.ovu.sso.server.user.vo.UserVO;
 

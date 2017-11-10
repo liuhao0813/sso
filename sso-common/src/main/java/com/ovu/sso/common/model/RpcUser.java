@@ -1,4 +1,4 @@
-package com.ovu.sso.client.model;
+package com.ovu.sso.common.model;
 
 import java.io.Serializable;
 

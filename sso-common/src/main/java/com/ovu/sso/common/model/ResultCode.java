@@ -1,4 +1,4 @@
-package com.ovu.sso.client.model;
+package com.ovu.sso.common.model;
 
 /**
  * 基础返回码，具体业务返回码可继承ResultCode
