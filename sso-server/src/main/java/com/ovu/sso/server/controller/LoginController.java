@@ -90,7 +90,6 @@ public class LoginController extends BaseController{
 				//token存在且认证通过，表示有多用户登陆，需要进行更新，以后面登陆的用户为准
 				updateToken(loginUser,token,request);
 			}
-			tokenManager.print();
 			// 跳转到原请求
 			backUrl = URLDecoder.decode(backUrl, "utf-8");
 			return "redirect:" + StringUtils.appendUrlParameter(backUrl, SsoFilter.SSO_TOKEN_NAME, token);

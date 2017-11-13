@@ -121,6 +121,18 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<httpsPort>8443</httpsPort>
+					<path>/${project.artifactId}</path>
+					<keystoreFile>${basedir}/cert/214300405610299.pfx</keystoreFile>
+					<keystoreType>PKCS12</keystoreType>
+					<keystorePass>214300405610299</keystorePass>
+				</configuration>
+			</plugin>
 		</plugins>
 
 		<resources>
